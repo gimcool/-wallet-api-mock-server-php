@@ -488,6 +488,18 @@ if (preg_match('/\/v1\/mock\/wallets\/(?<wallet_id>\d+)\/apitoken$/i', $path, $m
     log_access($uri, $resp);
     echo response($resp);
     return;
+} else if (preg_match('/\/v1\/mock\/currency\/prices$/i', $path)) {
+    $uri = '/v1/sofa/currency/prices';
+    $resp = make_request(0, $method, $uri, $query, $post_data);
+    log_access($uri, $resp);
+    echo response($resp);
+    return;
+} else if (preg_match('/\/v1\/mock\/wallets\/(?<wallet_id>\d+)\/receiver\/get-balances$/i', $path, $m)) {
+    $uri = '/v1/sofa/wallets/'.$m['wallet_id'].'/receiver/get-balances';
+    $resp = make_request($m['wallet_id'], $method, $uri, $query, $post_data);
+    log_access($uri, $resp);
+    echo response($resp);
+    return;
 }
 
 $resp['status'] = 404;
@@ -496,4 +508,3 @@ log_access($path, $resp);
 echo response($resp);
 
 ?>
-
